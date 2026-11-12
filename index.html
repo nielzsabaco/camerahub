@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101418">
+<title>CameraHub | Sony Gear Reference</title>
+<style>
+:root{--bg:#0d1117;--panel:#151c24;--panel2:#1b2530;--line:#293542;--text:#eef3f8;--muted:#9aa9b8;--accent:#f5a623;--green:#5bc49a;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{max-width:1200px;margin:auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0 26px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:13px;background:var(--accent);color:#151515;display:grid;place-items:center;font-size:22px;font-weight:900}
+h1{font-size:22px;line-height:1.1;margin:0}header p{margin:4px 0 0;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.topnote{color:var(--muted);font-size:12px;text-align:right}
+.hero{padding:32px 0 22px}.eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.13em;font-size:11px}
+.hero h2{font-size:clamp(28px,4vw,42px);line-height:1.1;margin:8px 0}.hero p{color:var(--muted);max-width:680px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.stat,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:16px}.stat{padding:16px}.stat strong{display:block;font-size:25px}.stat span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:8px;overflow:auto;padding:6px 0 16px}.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:10px 15px;border-radius:10px;white-space:nowrap}.tab.active{background:var(--accent);border-color:var(--accent);color:#171717;font-weight:800}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 18px}.toolbar input,.toolbar select,.field input,.field select,.field textarea{background:#0f151c;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:11px 12px;min-width:0}.toolbar input{flex:1;min-width:190px}.toolbar select{min-width:150px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}.card{padding:17px;display:flex;flex-direction:column;gap:9px}.card .tagrow{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:#342a19;border-radius:30px;padding:4px 8px}.card h3{font-size:18px;margin:0}.muted{color:var(--muted)}.card p{margin:0;color:var(--muted);font-size:13px}.specs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:4px 0}.spec{background:var(--panel2);padding:8px;border-radius:8px}.spec small{display:block;color:var(--muted);font-size:10px}.spec b{font-size:12px}.actions{display:flex;gap:8px;margin-top:auto;padding-top:8px}.btn{border:1px solid var(--line);border-radius:9px;padding:9px 12px;background:var(--panel2);color:var(--text);font-weight:650}.btn.primary{background:var(--accent);border-color:var(--accent);color:#161616}.btn.danger{color:var(--red)}.empty{padding:32px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;grid-column:1/-1}
+.panel{padding:18px;margin-bottom:14px}.panel h3{margin:0 0 10px}.compat{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compat .panel{margin:0}.compat ul{padding-left:18px;margin:8px 0;color:var(--muted);font-size:13px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:13px}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.07em;background:#111820}td{vertical-align:middle}.status{display:inline-block;border-radius:30px;padding:4px 8px;font-size:11px;background:#17372e;color:var(--green)}.status.service{background:#3b2023;color:var(--red)}
+.fieldgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted)}.field input,.field select,.field textarea{width:100%}.field.full{grid-column:1/-1}.formactions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;padding:18px;z-index:5}.modal.open{display:grid}.dialog{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:20px;width:min(600px,100%);max-height:90vh;overflow:auto}.dialoghead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}.dialoghead h3{margin:0}.close{background:transparent;border:0;color:var(--muted);font-size:24px}
+footer{border-top:1px solid var(--line);margin-top:35px;padding:18px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:650px){.shell{padding:16px}.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:11px}.stat strong{font-size:20px}.compat,.fieldgrid{grid-template-columns:1fr}.topnote{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+ <div class="brand"><div class="logo">CH</div><div><h1>CameraHub</h1><p>Sony equipment reference & inventory</p></div></div>
+ <div class="topnote">OFFICE PHOTOGRAPHY & MULTIMEDIA TEAM<br>INTERNAL EQUIPMENT GUIDE</div>
+</header>
+<section class="hero"><div class="eyebrow">Your gear, organized</div><h2>Know your equipment.<br>Make every shot count.</h2><p>A practical reference for Sony cameras, lenses and accessories—plus a simple inventory tracker for your team's equipment.</p></section>
+<section class="stats">
+ <div class="stat"><strong id="cameraCount">0</strong><span>Camera models in guide</span></div>
+ <div class="stat"><strong id="accessoryCount">0</strong><span>Accessory types</span></div>
+ <div class="stat"><strong id="inventoryCount">0</strong><span>Inventory records</span></div>
+</section>
+<nav class="tabs" aria-label="Main sections">
+ <button class="tab active" data-tab="cameras">Cameras</button><button class="tab" data-tab="accessories">Accessories</button><button class="tab" data-tab="compatibility">Compatibility</button><button class="tab" data-tab="inventory">Team inventory</button>
+</nav>
+<main id="view"></main>
+<footer><span>CameraHub · Sony-focused equipment guide</span><span>Inventory is saved in this browser only. Export a backup regularly.</span></footer>
+</div>
+<div class="modal" id="modal"><div class="dialog"><div class="dialoghead"><h3 id="modalTitle">Equipment details</h3><button class="close" id="closeModal" aria-label="Close">×</button></div><div id="modalBody"></div></div></div>
+<script>
+const cameras=[
+{id:"a7iv",name:"Sony α7 IV",type:"Full-frame mirrorless",sensor:"33 MP full-frame",video:"4K 60p (Super 35 crop)",mount:"Sony E-mount",battery:"NP-FZ100",stabilization:"5-axis IBIS",notes:"Hybrid photo/video body. Strong all-rounder for events, portraits and office documentation."},
+{id:"a7iii",name:"Sony α7 III",type:"Full-frame mirrorless",sensor:"24.2 MP full-frame",video:"4K 30p",mount:"Sony E-mount",battery:"NP-FZ100",stabilization:"5-axis IBIS",notes:"Reliable full-frame hybrid camera with strong low-light performance."},
+{id:"a7rv",name:"Sony α7R V",type:"Full-frame mirrorless",sensor:"61 MP full-frame",video:"8K 24p; 4K 60p",mount:"Sony E-mount",battery:"NP-FZ100",stabilization:"5-axis IBIS",notes:"High-resolution body suited to detailed stills, cropping and large-format output."},
+{id:"a6700",name:"Sony α6700",type:"APS-C mirrorless",sensor:"26 MP APS-C",video:"4K 120p (crop)",mount:"Sony E-mount",battery:"NP-FZ100",stabilization:"5-axis IBIS",notes:"Compact hybrid body for video, behind-the-scenes coverage and lightweight kits."},
+{id:"fx3",name:"Sony FX3",type:"Full-frame cinema line",sensor:"12.1 MP full-frame",video:"4K 120p",mount:"Sony E-mount",battery:"NP-FZ100",stabilization:"5-axis IBIS",notes:"Cinema-oriented body with active cooling and dedicated video controls."},
+{id:"zve10ii",name:"Sony ZV-E10 II",type:"APS-C mirrorless",sensor:"26 MP APS-C",video:"4K 60p",mount:"Sony E-mount",battery:"NP-FZ100",stabilization:"Electronic (Active mode)",notes:"Creator-focused interchangeable-lens camera for interviews and social content."}
+];
+const accessories=[
+{name:"Sony E-mount lenses",category:"Lens",use:"Control framing, perspective and depth of field. Choose focal length based on the subject and shooting distance.",compat:"E-mount camera bodies; full-frame lenses cover APS-C sensors, while APS-C lenses may vignette on full-frame bodies unless crop mode is used."},
+{name:"External flash (HVL series / compatible)",category:"Lighting",use:"Adds controllable light for indoor events, portraits and bounce-flash photography.",compat:"Check the exact flash model's Multi Interface Shoe compatibility and TTL support for the camera."},
+{name:"LED video light",category:"Lighting",use:"Continuous light for interviews, product shots and video. Adjust brightness and color temperature as needed.",compat:"Usually works independently of the camera; check mounting, power and any control-cable requirements."},
+{name:"Tripod",category:"Support",use:"Stabilizes the camera for group photos, interviews, long exposures and locked-off video.",compat:"Use a compatible 1/4-inch camera plate; check payload rating for camera plus lens."},
+{name:"Monopod",category:"Support",use:"Adds support while remaining mobile—useful for long-lens event coverage.",compat:"Check head/plate type and payload rating."},
+{name:"Gimbal",category:"Stabilization",use:"Provides smoother moving shots and walking footage.",compat:"Confirm camera-and-lens payload, dimensions, balance clearance and USB control support."},
+{name:"Wireless microphone",category:"Audio",use:"Captures clearer speech for interviews, speeches and field reports.",compat:"Check 3.5 mm mic input, digital hot-shoe support or USB-C compatibility for the specific camera."},
+{name:"Shotgun microphone",category:"Audio",use:"Directional audio for interviews and video production.",compat:"Connect via 3.5 mm microphone input or compatible digital shoe; verify cable and shoe adapter."},
+{name:"SD / CFexpress memory card",category:"Storage",use:"Stores photos and video. Faster cards may be required for high-bitrate or high-frame-rate recording.",compat:"Check the camera's supported card type, speed class and slot-specific recording modes before purchase."},
+{name:"NP-FZ100 battery",category:"Power",use:"Spare battery for longer event coverage and video shoots.",compat:"Used by the α7 III, α7 IV, α7R V, α6700, FX3 and ZV-E10 II listed in this guide."},
+{name:"Variable ND filter",category:"Lens accessory",use:"Reduces incoming light so video can maintain a chosen shutter speed in bright conditions.",compat:"Match the filter thread diameter printed on the lens; step-up rings can adapt larger filters."},
+{name:"Camera cage / top handle",category:"Rigging",use:"Adds mounting points for monitors, microphones, handles and other video accessories.",compat:"Choose a cage designed for the exact camera body; check access to ports, battery door and screen."},
+{name:"Camera bag",category:"Protection",use:"Protects and organizes camera bodies, lenses, batteries and small accessories during transport.",compat:"Choose capacity and padded dividers based on the team's actual kit."}
+];
+let inventory=JSON.parse(localStorage.getItem("camerahub_inventory")||"[]");
+let currentTab="cameras";
+const view=document.getElementById("view");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function updateStats(){document.getElementById("cameraCount").textContent=cameras.length;document.getElementById("accessoryCount").textContent=accessories.length;document.getElementById("inventoryCount").textContent=inventory.length;}
+function switchTab(tab){currentTab=tab;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));render();}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+function toolbar(placeholder,filterOptions=""){return `<div class="toolbar"><input id="search" placeholder="${placeholder}" aria-label="Search"><select id="filter"><option value="">All categories</option>${filterOptions}</select></div>`}
+function render(){
+ updateStats();
+ if(currentTab==="cameras"){
+ view.innerHTML=toolbar("Search Sony camera models...")+`<div class="grid" id="cards"></div>`;
+ document.getElementById("search").addEventListener("input",drawCameras);drawCameras();
+ }else if(currentTab==="accessories"){
+ const cats=[...new Set(accessories.map(a=>a.category))];view.innerHTML=toolbar("Search accessories and uses...",cats.map(c=>`<option>${esc(c)}</option>`).join(""))+`<div class="grid" id="cards"></div>`;
+ document.getElementById("search").addEventListener("input",drawAccessories);document.getElementById("filter").addEventListener("change",drawAccessories);drawAccessories();
+ }else if(currentTab==="compatibility"){renderCompatibility();}
+ else renderInventory();
+}
+function drawCameras(){
+ const q=document.getElementById("search").value.toLowerCase();const list=cameras.filter(c=>(c.name+" "+c.type+" "+c.sensor+" "+c.notes).toLowerCase().includes(q));
+ document.getElementById("cards").innerHTML=list.length?list.map(c=>`<article class="card"><div class="tagrow"><span class="tag">${esc(c.type)}</span><span class="tag">E-mount</span></div><h3>${esc(c.name)}</h3><div class="specs"><div class="spec"><small>Sensor</small><b>${esc(c.sensor)}</b></div><div class="spec"><small>Video</small><b>${esc(c.video)}</b></div><div class="spec"><small>Battery</small><b>${esc(c.battery)}</b></div><div class="spec"><small>Stabilization</small><b>${esc(c.stabilization)}</b></div></div><p>${esc(c.notes)}</p><div class="actions"><button class="btn primary" onclick="showCamera('${c.id}')">Full specifications</button></div></article>`).join(""):`<div class="empty">No cameras match your search.</div>`;
+}
+function drawAccessories(){
+ const q=document.getElementById("search").value.toLowerCase(),cat=document.getElementById("filter").value;const list=accessories.filter(a=>(!cat||a.category===cat)&&(a.name+" "+a.use+" "+a.compat).toLowerCase().includes(q));
+ document.getElementById("cards").innerHTML=list.length?list.map((a,i)=>`<article class="card"><div class="tagrow"><span class="tag">${esc(a.category)}</span></div><h3>${esc(a.name)}</h3><p>${esc(a.use)}</p><div class="panel" style="padding:10px;margin:3px 0 0"><b style="font-size:11px">COMPATIBILITY NOTE</b><p style="margin-top:4px">${esc(a.compat)}</p></div></article>`).join(""):`<div class="empty">No accessories match your search.</div>`;
+}
+function showCamera(id){
+ const c=cameras.find(x=>x.id===id);document.getElementById("modalTitle").textContent=c.name;
+ document.getElementById("modalBody").innerHTML=`<div class="specs">${[["Camera type",c.type],["Sensor",c.sensor],["Video",c.video],["Lens mount",c.mount],["Battery",c.battery],["Stabilization",c.stabilization]].map(([k,v])=>`<div class="spec"><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div><p class="muted">${esc(c.notes)}</p><p class="muted" style="font-size:12px">Specifications are a quick-reference summary. Verify exact recording limits, card requirements and firmware details in the official Sony help guide before a production or purchase.</p>`;
+ document.getElementById("modal").classList.add("open");
+}
+function renderCompatibility(){
+ view.innerHTML=`<div class="panel"><h3>Quick compatibility guide</h3><p class="muted">Use this as a starting point. Always verify the exact accessory model and camera firmware before purchasing or deploying equipment.</p></div><div class="compat">
+ <div class="panel"><h3><span class="tag">Lens mount</span></h3><b>Sony E-mount</b><ul><li>All camera bodies in this guide use Sony E-mount.</li><li>Full-frame FE lenses work on APS-C E-mount bodies (with a narrower field of view).</li><li>APS-C E lenses can be mounted on full-frame bodies; use crop mode to avoid vignetting in most cases.</li></ul></div>
+ <div class="panel"><h3><span class="tag">Battery</span></h3><b>NP-FZ100</b><ul><li>α7 III, α7 IV, α7R V, α6700, FX3 and ZV-E10 II.</li><li>Use genuine or reputable compatible batteries and chargers.</li></ul></div>
+ <div class="panel"><h3><span class="tag">Flash & audio</span></h3><b>Check the connection</b><ul><li>Flashes: confirm Multi Interface Shoe fit and TTL/HSS support.</li><li>Microphones: check 3.5 mm input, digital shoe or USB-C route.</li><li>Adapters may be required; not every feature works across all models.</li></ul></div>
+ <div class="panel"><h3><span class="tag">Cards & support</span></h3><b>Match the workload</b><ul><li>Memory-card format and speed requirements vary by camera and recording mode.</li><li>Tripods, cages and gimbals must meet payload and body-fit requirements.</li><li>Check gimbal balance clearance with the actual lens attached.</li></ul></div>
+ </div><div class="panel" style="margin-top:14px"><h3>Lens selection examples</h3><div class="tablewrap"><table><thead><tr><th>Lens range</th><th>Useful for</th><th>Typical team use</th></tr></thead><tbody><tr><td>16–35mm</td><td>Wide-angle</td><td>Venues, group photos, establishing shots</td></tr><tr><td>24–70mm</td><td>Standard zoom</td><td>Events, portraits, general documentation</td></tr><tr><td>70–200mm</td><td>Telephoto zoom</td><td>Stage coverage, ceremonies, candid moments</td></tr><tr><td>35mm / 50mm prime</td><td>Low-light / portraits</td><td>Interviews, portraits, detail shots</td></tr></tbody></table></div></div>`;
+}
+function renderInventory(){
+ view.innerHTML=`<div class="panel"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><h3>Team equipment inventory</h3><p class="muted" style="margin:0">Track assigned gear, condition and availability. Add your actual office equipment below.</p></div><div class="actions"><button class="btn" onclick="exportCSV()">Export CSV</button><button class="btn" onclick="exportJSON()">Backup JSON</button><button class="btn primary" onclick="openAdd()">+ Add equipment</button></div></div></div>
+ <div class="toolbar"><input id="invSearch" placeholder="Search item, serial number, custodian..."><select id="invStatus"><option value="">All conditions</option><option>Good</option><option>For repair</option><option>Needs checking</option></select></div>
+ <div class="tablewrap"><table><thead><tr><th>Equipment</th><th>Category</th><th>Serial / asset no.</th><th>Assigned to</th><th>Condition</th><th>Actions</th></tr></thead><tbody id="invRows"></tbody></table></div>
+ <p class="muted" style="font-size:12px">Privacy note: inventory data is stored in this browser's local storage, not uploaded to GitHub or shared with teammates. Export a backup and coordinate a shared storage solution if multiple staff need access.</p>`;
+ document.getElementById("invSearch").addEventListener("input",drawInventory);document.getElementById("invStatus").addEventListener("change",drawInventory);drawInventory();
+}
+function drawInventory(){
+ const q=document.getElementById("invSearch").value.toLowerCase(),st=document.getElementById("invStatus").value;
+ const list=inventory.map((x,i)=>({...x,index:i})).filter(x=>(!st||x.condition===st)&&(Object.values(x).join(" ").toLowerCase().includes(q)));
+ document.getElementById("invRows").innerHTML=list.length?list.map(x=>`<tr><td><b>${esc(x.name)}</b><br><span class="muted">${esc(x.model||"")}</span></td><td>${esc(x.category)}</td><td>${esc(x.serial||"—")}</td><td>${esc(x.custodian||"Unassigned")}</td><td><span class="status ${x.condition==="For repair"?"service":""}">${esc(x.condition)}</span></td><td><button class="btn" onclick="editItem(${x.index})">Edit</button> <button class="btn danger" onclick="deleteItem(${x.index})">Delete</button></td></tr>`).join(""):`<tr><td colspan="6" class="empty">No inventory records yet. Add your team's first item.</td></tr>`;
+}
+function openAdd(item=null,index=-1){
+ document.getElementById("modalTitle").textContent=index<0?"Add equipment":"Edit equipment";
+ const x=item||{name:"",category:"Camera",model:"",serial:"",custodian:"",condition:"Good",notes:""};
+ document.getElementById("modalBody").innerHTML=`<form id="invForm"><div class="fieldgrid">
+ <div class="field"><label>Equipment name *</label><input name="name" required value="${esc(x.name)}" placeholder="e.g. Sony camera body"></div>
+ <div class="field"><label>Category</label><select name="category">${["Camera","Lens","Lighting","Audio","Support","Storage","Power","Other"].map(v=>`<option ${x.category===v?"selected":""}>${v}</option>`).join("")}</select></div>
+ <div class="field"><label>Model</label><input name="model" value="${esc(x.model)}" placeholder="e.g. ILCE-7M4"></div>
+ <div class="field"><label>Serial / asset number</label><input name="serial" value="${esc(x.serial)}"></div>
+ <div class="field"><label>Assigned to</label><input name="custodian" value="${esc(x.custodian)}"></div>
+ <div class="field"><label>Condition</label><select name="condition">${["Good","Needs checking","For repair"].map(v=>`<option ${x.condition===v?"selected":""}>${v}</option>`).join("")}</select></div>
+ <div class="field full"><label>Notes</label><textarea name="notes" rows="2">${esc(x.notes)}</textarea></div></div><div class="formactions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save equipment</button></div></form>`;
+ document.getElementById("invForm").addEventListener("submit",e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());if(index<0)inventory.push(data);else inventory[index]=data;saveInventory();closeModal();renderInventory();updateStats();});
+ document.getElementById("modal").classList.add("open");
+}
+function openAdd(){openAddItem();}
+function openAddItem(){openAddForm();}
+function openAddForm(){ // separate name avoids collision with modal form
+ const x={name:"",category:"Camera",model:"",serial:"",custodian:"",condition:"Good",notes:""};
+ showInventoryForm(x,-1);
+}
+function showInventoryForm(x,index){
+ document.getElementById("modalTitle").textContent=index<0?"Add equipment":"Edit equipment";
+ document.getElementById("modalBody").innerHTML=`<form id="invForm"><div class="fieldgrid">
+ <div class="field"><label>Equipment name *</label><input name="name" required value="${esc(x.name)}" placeholder="e.g. Sony camera body"></div>
+ <div class="field"><label>Category</label><select name="category">${["Camera","Lens","Lighting","Audio","Support","Storage","Power","Other"].map(v=>`<option ${x.category===v?"selected":""}>${v}</option>`).join("")}</select></div>
+ <div class="field"><label>Model</label><input name="model" value="${esc(x.model)}"></div><div class="field"><label>Serial / asset number</label><input name="serial" value="${esc(x.serial)}"></div>
+ <div class="field"><label>Assigned to</label><input name="custodian" value="${esc(x.custodian)}"></div><div class="field"><label>Condition</label><select name="condition">${["Good","Needs checking","For repair"].map(v=>`<option ${x.condition===v?"selected":""}>${v}</option>`).join("")}</select></div>
+ <div class="field full"><label>Notes</label><textarea name="notes" rows="2">${esc(x.notes)}</textarea></div></div><div class="formactions"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Save equipment</button></div></form>`;
+ document.getElementById("invForm").addEventListener("submit",e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());if(index<0)inventory.push(data);else inventory[index]=data;saveInventory();closeModal();renderInventory();});
+ document.getElementById("modal").classList.add("open");
+}
+function editItem(i){showInventoryForm(inventory[i],i)}
+function deleteItem(i){if(confirm("Delete this inventory record?")){inventory.splice(i,1);saveInventory();renderInventory();}}
+function saveInventory(){localStorage.setItem("camerahub_inventory",JSON.stringify(inventory));updateStats();}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+document.getElementById("closeModal").addEventListener("click",closeModal);document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+function downloadFile(name,content,type){const a=document.createElement("a"),url=URL.createObjectURL(new Blob([content],{type}));a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+function exportJSON(){downloadFile("camerahub-inventory-backup.json",JSON.stringify(inventory,null,2),"application/json")}
+function exportCSV(){const cols=["name","category","model","serial","custodian","condition","notes"];const rows=[cols,...inventory.map(x=>cols.map(k=>x[k]||""))];const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n");downloadFile("camerahub-inventory.csv",csv,"text/csv")}
+updateStats();render();
+</script>
+</body></html>
